@@ -1,0 +1,44 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-production-ready-deployment-configuration-for-the-existing-ei-assessment-app-on-the-internet-computer-including-building-the-frontend-assets-and-deploying-the-motoko-backend-canister-and-frontend-canister-as-a-live-production-instance",
+      "featureTitle": "Create a production-ready deployment configuration for the existing EI assessment app on the Internet Computer, including building the frontend assets and deploying the Motoko backend canister and frontend canister as a live/production instance.",
+      "files": [
+        "frontend/DEPLOYMENT_PRODUCTION.md"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-production-readiness-checklist-and-smoke-test-flow-to-confirm-the-app-is-functioning-correctly-immediately-after-deployment",
+      "featureTitle": "Add a production readiness checklist and smoke-test flow to confirm the app is functioning correctly immediately after deployment.",
+      "files": [
+        "frontend/PRODUCTION_READINESS_CHECKLIST.md",
+        "frontend/SMOKE_TEST_PRODUCTION.md"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

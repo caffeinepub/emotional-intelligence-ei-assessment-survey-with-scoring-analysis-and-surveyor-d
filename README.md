@@ -1,2 +1,3 @@
-# emotional-intelligence-ei-assessment-survey-with-scoring-analysis-and-surveyor-d
-Exported from Caffeine project: Emotional Intelligence (EI) Assessment Survey with Scoring Analysis and Surveyor Download Rights
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

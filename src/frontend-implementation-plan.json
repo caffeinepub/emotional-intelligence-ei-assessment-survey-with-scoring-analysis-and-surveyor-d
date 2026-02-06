@@ -1,0 +1,56 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Production go-live readiness for the EI assessment app (frontend-only)",
+  "requirements": [
+    {
+      "id": "REQ-8",
+      "summary": "Harden frontend production configuration for Internet Identity + backend canister connectivity, and document go-live deployment steps for the full app.",
+      "acceptanceCriteria": [
+        "A documented set of deployment steps exists (commands and order of operations) to deploy the backend and frontend canisters to a production network target (e.g., IC mainnet).",
+        "The deployed app loads successfully in a browser from the production frontend canister URL and can reach the backend canister without CORS/agent errors.",
+        "Internet Identity authentication works in production: user can log in, log out, and remain authenticated across refreshes.",
+        "A user can complete the 50-item assessment in production, submit it, and then view their computed results (five competency totals + categories).",
+        "A surveyor (allowlisted principal) can access the Surveyor Dashboard in production and export submissions to CSV and JSON.",
+        "An admin can add/remove surveyor principals in production and the permission change takes effect without redeploying."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useInternetIdentity.ts",
+          "operation": "modify",
+          "description": "Make Internet Identity configuration production-safe by sourcing the identityProvider from Vite-compatible runtime env (e.g., import.meta.env) with a sensible production default, and ensure derivationOrigin behavior remains correct for production persistence across refreshes. Use the selected \"authorization\" component guidance for Internet Identity behavior (login/logout, persisted identity) and role-based access control expectations. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useActor.ts",
+          "operation": "modify",
+          "description": "Improve production robustness of actor initialization to avoid breaking authenticated sessions due to missing/invalid URL secret parameters (e.g., make access-control secret initialization best-effort and non-fatal), and ensure the actor is recreated cleanly on identity changes to prevent agent/config mismatches in production. Use the selected \"authorization\" component guidance for clearing cached data on logout and guarding authenticated data access. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/DEPLOYMENT_PRODUCTION.md",
+          "operation": "create",
+          "description": "Add a production deployment runbook documenting commands and order of operations to build frontend assets and deploy backend + frontend canisters to a production network target, including where to record canister IDs and the production frontend URL, and any required environment configuration values for Internet Identity in production."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Provide a production readiness checklist and a <10-minute smoke-test flow runnable immediately after deployment.",
+      "acceptanceCriteria": [
+        "Checklist includes at minimum: canister IDs recorded, frontend URL recorded, Internet Identity login verified, assessment submission verified, results view verified, surveyor export verified, and admin surveyor management verified.",
+        "Smoke-test flow can be executed by a developer or operator in under 10 minutes using only the deployed app UI and documented commands (if any)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/PRODUCTION_READINESS_CHECKLIST.md",
+          "operation": "create",
+          "description": "Create a concise production readiness checklist covering: canister IDs recorded, frontend URL recorded, Internet Identity login verified, assessment submission verified, results view verified, surveyor export verified (CSV + JSON), and admin surveyor management verified (add/remove takes effect without redeploy)."
+        },
+        {
+          "path": "frontend/SMOKE_TEST_PRODUCTION.md",
+          "operation": "create",
+          "description": "Create a step-by-step smoke-test flow that can be completed in under 10 minutes using the deployed UI (plus any necessary documented commands), including: login/logout + refresh persistence, completing/submitting the 50-item assessment, verifying results, verifying surveyor dashboard access + exports, and verifying admin add/remove surveyor principals."
+        }
+      ]
+    }
+  ]
+}

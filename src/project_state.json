@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Emotional intelligence assessment app featuring a 50-item Likert (1–5) questionnaire, automated scoring across five emotional competencies (Self-awareness, Managing emotions, Motivating oneself, Empathy, Social skill), interpretation of results by score ranges, and surveyor role permissions to download assessment results.",
+  "architectural_notes": [
+    "Define roles: respondent completes assessment; surveyor can access and download results.",
+    "Store per-question responses and computed competency totals to support download/export.",
+    "Add a deployment/release process to publish the app to a live (production) environment."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-implement-the-ei-assessment-questionnaire-ui-containing-all-50-provided-statements-each-answered-with-a-1-5-likert-score-and-include-the-instructions-text-explaining-the-1-3-5-meaning",
+      "title": "Implement the EI assessment questionnaire UI containing all 50 provided statements, each answered with a 1–5 Likert score, and include the instructions text explaining the 1/3/5 meaning.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-compute-automated-scoring-across-the-five-emotional-competencies-using-the-provided-item-to-competency-grid-mapping-self-awareness-1-6-11-16-21-26-31-36-41-46-managing-emotions-2-7-12-17-22-27-32-37-42-47-motivating-oneself-3-8-13-18-23-28-33-38-43-48-empathy-4-9-14-19-24-29-34-39-44-49-social-skill-5-10-15-20-25-30-35-40-45-50-and-calculate-per-competency-totals-10-items-each",
+      "title": "Compute automated scoring across the five emotional competencies using the provided item-to-competency grid mapping (Self awareness: 1,6,11,16,21,26,31,36,41,46; Managing emotions: 2,7,12,17,22,27,32,37,42,47; Motivating oneself: 3,8,13,18,23,28,33,38,43,48; Empathy: 4,9,14,19,24,29,34,39,44,49; Social Skill: 5,10,15,20,25,30,35,40,45,50), and calculate per-competency totals (10 items each).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-interpret-each-competency-total-using-the-provided-thresholds-35-50-strength-18-34-needs-attention-10-17-development-priority-and-present-an-analysis-view-showing-each-competency-s-total-and-category",
+      "title": "Interpret each competency total using the provided thresholds (35–50 = Strength, 18–34 = Needs attention, 10–17 = Development priority) and present an analysis view showing each competency’s total and category.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-authenticated-access-using-internet-identity-and-implement-a-surveyor-role-that-has-permission-to-download-respondents-results-include-an-admin-mechanism-to-manage-the-surveyor-allowlist-e-g-add-remove-surveyor-principals-within-the-app",
+      "title": "Add authenticated access using Internet Identity and implement a 'surveyor' role that has permission to download respondents’ results; include an admin mechanism to manage the surveyor allowlist (e.g., add/remove surveyor principals) within the app.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-surveyor-dashboard-that-allows-surveyors-to-view-stored-submissions-and-download-results-at-minimum-csv-and-or-json-containing-respondent-principal-timestamp-answers-1-50-competency-totals-and-interpretation-categories",
+      "title": "Provide a surveyor dashboard that allows surveyors to view stored submissions and download results (at minimum CSV and/or JSON) containing respondent principal, timestamp, answers 1–50, competency totals, and interpretation categories.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-creative-visual-theme-for-the-assessment-app-colors-typography-layout-and-use-it-consistently-across-the-questionnaire-results-view-and-surveyor-dashboard-avoid-blue-purple-as-primary-colors",
+      "title": "Apply a cohesive, creative visual theme for the assessment app (colors, typography, layout) and use it consistently across the questionnaire, results view, and surveyor dashboard (avoid blue/purple as primary colors).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-production-ready-deployment-configuration-for-the-existing-ei-assessment-app-on-the-internet-computer-including-building-the-frontend-assets-and-deploying-the-motoko-backend-canister-and-frontend-canister-as-a-live-production-instance",
+      "title": "Create a production-ready deployment configuration for the existing EI assessment app on the Internet Computer, including building the frontend assets and deploying the Motoko backend canister and frontend canister as a live/production instance.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-production-readiness-checklist-and-smoke-test-flow-to-confirm-the-app-is-functioning-correctly-immediately-after-deployment",
+      "title": "Add a production readiness checklist and smoke-test flow to confirm the app is functioning correctly immediately after deployment.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Build EI assessment questionnaire UI with 50 statements scored 1–5 (Likert scale)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Auto-calculate totals for 5 competencies using the provided item-to-competency grid mapping",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Interpret each competency total using thresholds (35–50 strength, 18–34 needs attention, 10–17 development priority) and present analysis to user",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add surveyor role permissions to download respondents’ results (export/download)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Persist each completed assessment submission in the backend, including: respondent identifier (Internet Identity principal), timestamp, answers for items 1–50, computed totals for the five competencies, and the derived interpretation category for each competency.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Deploy the EI assessment app to a live/production environment (“go live” request)",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Emotional Intelligence (EI) Assessment Survey with Scoring Analysis and Surveyor Download Rights",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,56 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T09:11:25.277Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 2,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-8",
+        "summary": "Create a production-ready deployment configuration for the existing EI assessment app on the Internet Computer, including building the frontend assets and deploying the Motoko backend canister and frontend canister as a live/production instance.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useInternetIdentity.ts",
+          "frontend/src/hooks/useActor.ts",
+          "frontend/DEPLOYMENT_PRODUCTION.md"
+        ],
+        "matchedFiles": [
+          "frontend/DEPLOYMENT_PRODUCTION.md"
+        ]
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Add a production readiness checklist and smoke-test flow to confirm the app is functioning correctly immediately after deployment.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/PRODUCTION_READINESS_CHECKLIST.md",
+          "frontend/SMOKE_TEST_PRODUCTION.md"
+        ],
+        "matchedFiles": [
+          "frontend/PRODUCTION_READINESS_CHECKLIST.md",
+          "frontend/SMOKE_TEST_PRODUCTION.md"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/DEPLOYMENT_PRODUCTION.md",
+    "frontend/PRODUCTION_READINESS_CHECKLIST.md",
+    "frontend/SMOKE_TEST_PRODUCTION.md",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

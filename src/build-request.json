@@ -1,0 +1,59 @@
+{
+  "kind": "build_request",
+  "title": "Prepare and deploy the EI assessment app to production (“go live”)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-8",
+      "text": "Create a production-ready deployment configuration for the existing EI assessment app on the Internet Computer, including building the frontend assets and deploying the Motoko backend canister and frontend canister as a live/production instance.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "go live"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A documented set of deployment steps exists (commands and order of operations) to deploy the backend and frontend canisters to a production network target (e.g., IC mainnet).",
+        "The deployed app loads successfully in a browser from the production frontend canister URL and can reach the backend canister without CORS/agent errors.",
+        "Internet Identity authentication works in production: user can log in, log out, and remain authenticated across refreshes.",
+        "A user can complete the 50-item assessment in production, submit it, and then view their computed results (five competency totals + categories).",
+        "A surveyor (allowlisted principal) can access the Surveyor Dashboard in production and export submissions to CSV and JSON.",
+        "An admin can add/remove surveyor principals in production and the permission change takes effect without redeploying."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Add a production readiness checklist and smoke-test flow to confirm the app is functioning correctly immediately after deployment.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "go live"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Checklist includes at minimum: canister IDs recorded, frontend URL recorded, Internet Identity login verified, assessment submission verified, results view verified, surveyor export verified, and admin surveyor management verified.",
+        "Smoke-test flow can be executed by a developer or operator in under 10 minutes using only the deployed app UI and documented commands (if any)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Respect the single-actor backend architecture (all Motoko logic in backend/main.mo).",
+    "Do not modify files under frontend/src/components/ui or any paths listed in frontend.immutablePaths.",
+    "Use English for any user-facing text."
+  ],
+  "nonGoals": [
+    "Adding new assessment questions, changing scoring logic, or modifying interpretation thresholds.",
+    "Adding third-party services (analytics, email, external databases, external auth providers).",
+    "Implementing real-time features (WebSockets/push notifications)."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
