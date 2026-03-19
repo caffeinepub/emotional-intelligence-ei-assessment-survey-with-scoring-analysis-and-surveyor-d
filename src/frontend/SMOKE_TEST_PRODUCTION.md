@@ -2,7 +2,7 @@
 
 This smoke test verifies that all critical functionality works correctly in the production environment. Complete this test immediately after deployment to catch any issues early.
 
-**Estimated Time:** 8-10 minutes
+**Estimated Time:** 6-8 minutes
 
 ## Prerequisites
 
@@ -22,17 +22,14 @@ This smoke test verifies that all critical functionality works correctly in the 
 4. Click the "Login" button
 5. Complete Internet Identity authentication
 6. Verify you're redirected back to the application
-7. Verify the profile setup modal appears (first-time login)
-8. Enter a display name (e.g., "Test Admin") and save
-9. Verify the modal closes and you see the authenticated UI
+7. Verify you see the authenticated UI (logout button, navigation menu)
 
 **Expected Results:**
 - ✅ Homepage loads successfully
 - ✅ No console errors
 - ✅ Login redirects to Internet Identity
 - ✅ Successfully authenticated and redirected back
-- ✅ Profile setup modal appears
-- ✅ Display name is saved
-- ✅ Authenticated UI is visible (logout button, user name)
+- ✅ Authenticated UI is visible (logout button, navigation)
 
 **Record Your Principal ID:**
+

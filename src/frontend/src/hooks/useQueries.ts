@@ -1,14 +1,15 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useActor } from './useActor';
-import type { UserProfile, AssessmentAnswers, AssessmentResults, Submission } from '../backend';
+import type { Principal } from "@icp-sdk/core/principal";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import type { QuizScore, UserProfile } from "../backend";
+import { useActor } from "./useActor";
 
 export function useGetCallerUserProfile() {
   const { actor, isFetching: actorFetching } = useActor();
 
   const query = useQuery<UserProfile | null>({
-    queryKey: ['currentUserProfile'],
+    queryKey: ["currentUserProfile"],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.getCallerUserProfile();
     },
     enabled: !!actor && !actorFetching,
@@ -28,54 +29,47 @@ export function useSaveCallerUserProfile() {
 
   return useMutation({
     mutationFn: async (profile: UserProfile) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.saveCallerUserProfile(profile);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
+      queryClient.invalidateQueries({ queryKey: ["currentUserProfile"] });
     },
   });
 }
 
-export function useSubmitAssessment() {
+export function useSubmitQuizScore() {
   const { actor } = useActor();
-  const queryClient = useQueryClient();
 
-  return useMutation<AssessmentResults, Error, AssessmentAnswers>({
-    mutationFn: async (answers: AssessmentAnswers) => {
-      if (!actor) throw new Error('Actor not available');
-      return actor.submitAssessment(answers);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['mySubmission'] });
+  return useMutation({
+    mutationFn: async (score: QuizScore) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.submitQuizScore(score);
     },
   });
 }
 
-export function useGetMySubmission() {
+export function useGetTopScores(user: Principal | null) {
   const { actor, isFetching: actorFetching } = useActor();
 
-  return useQuery<Submission | null>({
-    queryKey: ['mySubmission'],
+  return useQuery<QuizScore[]>({
+    queryKey: ["topScores", user?.toString()],
     queryFn: async () => {
-      if (!actor) return null;
-      return actor.getMySubmission();
+      if (!actor || !user) return [];
+      return actor.getTopScores(user);
     },
-    enabled: !!actor && !actorFetching,
+    enabled: !!actor && !actorFetching && !!user,
   });
 }
 
-export function useGetAllSubmissions() {
-  const { actor, isFetching: actorFetching } = useActor();
+export function useLogTrainingSession() {
+  const { actor } = useActor();
 
-  return useQuery<Submission[]>({
-    queryKey: ['allSubmissions'],
-    queryFn: async () => {
-      if (!actor) return [];
-      return actor.getAllSubmissions();
+  return useMutation({
+    mutationFn: async (section: string) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.logTrainingSession(section);
     },
-    enabled: !!actor && !actorFetching,
-    retry: false,
   });
 }
 
@@ -83,43 +77,11 @@ export function useIsCallerAdmin() {
   const { actor, isFetching: actorFetching } = useActor();
 
   return useQuery<boolean>({
-    queryKey: ['isCallerAdmin'],
+    queryKey: ["isCallerAdmin"],
     queryFn: async () => {
       if (!actor) return false;
       return actor.isCallerAdmin();
     },
     enabled: !!actor && !actorFetching,
-  });
-}
-
-export function useAssignSurveyorAccess() {
-  const { actor } = useActor();
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (principal: string) => {
-      if (!actor) throw new Error('Actor not available');
-      const { Principal } = await import('@dfinity/principal');
-      return actor.assignSurveyorAccess(Principal.fromText(principal));
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['allSubmissions'] });
-    },
-  });
-}
-
-export function useRevokeSurveyorAccess() {
-  const { actor } = useActor();
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (principal: string) => {
-      if (!actor) throw new Error('Actor not available');
-      const { Principal } = await import('@dfinity/principal');
-      return actor.revokeSurveyorAccess(Principal.fromText(principal));
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['allSubmissions'] });
-    },
   });
 }

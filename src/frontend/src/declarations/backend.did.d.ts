@@ -10,96 +10,36 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface AssessmentAnswers {
-  'item10' : bigint,
-  'item11' : bigint,
-  'item12' : bigint,
-  'item13' : bigint,
-  'item14' : bigint,
-  'item15' : bigint,
-  'item16' : bigint,
-  'item17' : bigint,
-  'item18' : bigint,
-  'item19' : bigint,
-  'item20' : bigint,
-  'item21' : bigint,
-  'item22' : bigint,
-  'item23' : bigint,
-  'item24' : bigint,
-  'item25' : bigint,
-  'item26' : bigint,
-  'item27' : bigint,
-  'item28' : bigint,
-  'item29' : bigint,
-  'item30' : bigint,
-  'item31' : bigint,
-  'item32' : bigint,
-  'item33' : bigint,
-  'item34' : bigint,
-  'item35' : bigint,
-  'item36' : bigint,
-  'item37' : bigint,
-  'item38' : bigint,
-  'item39' : bigint,
-  'item40' : bigint,
-  'item41' : bigint,
-  'item42' : bigint,
-  'item43' : bigint,
-  'item44' : bigint,
-  'item45' : bigint,
-  'item46' : bigint,
-  'item47' : bigint,
-  'item48' : bigint,
-  'item49' : bigint,
-  'item50' : bigint,
-  'item1' : bigint,
-  'item2' : bigint,
-  'item3' : bigint,
-  'item4' : bigint,
-  'item5' : bigint,
-  'item6' : bigint,
-  'item7' : bigint,
-  'item8' : bigint,
-  'item9' : bigint,
-}
-export interface AssessmentResults {
-  'selfAwareness' : SingleCompetencyScore,
-  'socialSkill' : SingleCompetencyScore,
-  'managingEmotions' : SingleCompetencyScore,
-  'motivatingOneself' : SingleCompetencyScore,
-  'empathy' : SingleCompetencyScore,
-}
-export type InterpretationCategory = { 'good' : null } |
-  { 'indicatesDevelopment' : null };
-export interface SingleCompetencyScore {
-  'total' : bigint,
-  'category' : InterpretationCategory,
-}
-export interface Submission {
-  'answers' : AssessmentAnswers,
-  'results' : AssessmentResults,
+export type AgeGroup = { 'adult18_30' : null } |
+  { 'senior31plus' : null } |
+  { 'under12' : null } |
+  { 'teen13_17' : null };
+export interface QuizScore {
+  'score' : bigint,
+  'totalQuestions' : bigint,
   'timestamp' : Time,
-  'respondent' : Principal,
+  'playerName' : string,
 }
 export type Time = bigint;
-export interface UserProfile { 'name' : string }
+export interface TrainingLog { 'section' : string, 'timestamp' : Time }
+export interface UserProfile { 'name' : string, 'ageGroup' : AgeGroup }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
 export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'assignAdminRole' : ActorMethod<[Principal], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
-  'assignSurveyorAccess' : ActorMethod<[Principal], undefined>,
-  'getAllSubmissions' : ActorMethod<[], Array<Submission>>,
+  'assignUserRole' : ActorMethod<[Principal], undefined>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
-  'getCompetencyMapping' : ActorMethod<[], string>,
-  'getMySubmission' : ActorMethod<[], [] | [Submission]>,
+  'getTopScores' : ActorMethod<[Principal], Array<QuizScore>>,
+  'getTrainingLogs' : ActorMethod<[Principal], Array<TrainingLog>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
-  'revokeSurveyorAccess' : ActorMethod<[Principal], undefined>,
+  'logTrainingSession' : ActorMethod<[string], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
-  'submitAssessment' : ActorMethod<[AssessmentAnswers], AssessmentResults>,
+  'submitQuizScore' : ActorMethod<[QuizScore], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

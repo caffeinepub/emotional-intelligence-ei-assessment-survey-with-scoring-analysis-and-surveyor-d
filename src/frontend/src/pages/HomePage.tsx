@@ -1,165 +1,138 @@
-import { useNavigate } from '@tanstack/react-router';
-import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import { useGetMySubmission } from '../hooks/useQueries';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Brain, ClipboardCheck, TrendingUp, Users, ArrowRight } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useNavigate } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  Brain,
+  Dumbbell,
+  Target,
+  Trophy,
+  Utensils,
+  Zap,
+} from "lucide-react";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { identity } = useInternetIdentity();
-  const { data: submission } = useGetMySubmission();
-
-  const isAuthenticated = !!identity;
-  const hasCompletedAssessment = !!submission;
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl">
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 mb-6 shadow-lg">
-          <Brain className="w-10 h-10 text-white" />
+      <div className="relative mb-12 rounded-2xl overflow-hidden">
+        <img
+          src="/assets/generated/football-hero.dim_1600x900.png"
+          alt="Football Training"
+          className="w-full h-64 md:h-96 object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent flex items-end">
+          <div className="p-8 w-full">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Elevate Your Game
+            </h1>
+            <p className="text-xl text-foreground/90 max-w-2xl">
+              Master football knowledge, optimize your nutrition, and train like
+              a pro
+            </p>
+          </div>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-          Emotional Intelligence Assessment
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Discover your emotional intelligence strengths and areas for growth through our comprehensive 50-question assessment
-        </p>
       </div>
 
-      {!isAuthenticated ? (
-        <Card className="max-w-2xl mx-auto border-2">
+      <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <Card
+          className="border-2 hover:border-primary transition-colors cursor-pointer"
+          onClick={() => navigate({ to: "/quiz" })}
+        >
           <CardHeader>
-            <CardTitle>Get Started</CardTitle>
+            <Brain className="w-12 h-12 text-primary mb-3" />
+            <CardTitle className="text-2xl">Quiz</CardTitle>
             <CardDescription>
-              Please log in to take the assessment and view your results
+              Test your football knowledge with 50 challenging questions
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground mb-4">
-              This assessment evaluates five key emotional competencies: Self Awareness, Managing Emotions, 
-              Motivating Oneself, Empathy, and Social Skill.
-            </p>
-            <Button size="lg" className="w-full" onClick={() => {}}>
-              Login to Begin
+            <Button className="w-full gap-2">
+              Start Quiz
+              <ArrowRight className="w-4 h-4" />
             </Button>
           </CardContent>
         </Card>
-      ) : hasCompletedAssessment ? (
-        <Card className="max-w-2xl mx-auto border-2 border-emerald-200 dark:border-emerald-900">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ClipboardCheck className="w-6 h-6 text-emerald-600" />
-              Assessment Complete
-            </CardTitle>
-            <CardDescription>
-              You have already completed the emotional intelligence assessment
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-muted-foreground">
-              View your detailed results and emotional intelligence profile to understand your strengths 
-              and areas for development.
-            </p>
-            <Button
-              size="lg"
-              className="w-full"
-              onClick={() => navigate({ to: '/results' })}
-            >
-              View Your Results
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card className="max-w-2xl mx-auto border-2">
-          <CardHeader>
-            <CardTitle>Ready to Begin?</CardTitle>
-            <CardDescription>
-              Take the assessment to discover your emotional intelligence profile
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-primary font-semibold text-sm">1</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">50 Questions</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Rate each statement from 1 (does not apply) to 5 (always applies)
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-primary font-semibold text-sm">2</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">5 Competencies</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Evaluated across Self Awareness, Managing Emotions, Motivating Oneself, Empathy, and Social Skill
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-primary font-semibold text-sm">3</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">Instant Results</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Receive immediate feedback with detailed interpretation of your scores
-                  </p>
-                </div>
-              </div>
-            </div>
-            <Button
-              size="lg"
-              className="w-full"
-              onClick={() => navigate({ to: '/assessment' })}
-            >
-              Start Assessment
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </CardContent>
-        </Card>
-      )}
 
-      <div className="grid md:grid-cols-3 gap-6 mt-12">
+        <Card
+          className="border-2 hover:border-primary transition-colors cursor-pointer"
+          onClick={() => navigate({ to: "/food" })}
+        >
+          <CardHeader>
+            <Utensils className="w-12 h-12 text-primary mb-3" />
+            <CardTitle className="text-2xl">Food</CardTitle>
+            <CardDescription>
+              Discover nutrition facts and plan your athlete diet
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button className="w-full gap-2">
+              Explore Foods
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card
+          className="border-2 hover:border-primary transition-colors cursor-pointer"
+          onClick={() => navigate({ to: "/training" })}
+        >
+          <CardHeader>
+            <Dumbbell className="w-12 h-12 text-primary mb-3" />
+            <CardTitle className="text-2xl">Training</CardTitle>
+            <CardDescription>
+              Watch professional drills and exercises to improve your skills
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button className="w-full gap-2">
+              View Drills
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-6">
         <Card>
           <CardHeader>
-            <TrendingUp className="w-8 h-8 text-primary mb-2" />
-            <CardTitle className="text-lg">Personal Growth</CardTitle>
+            <Trophy className="w-8 h-8 text-success mb-2" />
+            <CardTitle className="text-lg">Compete & Learn</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Identify your emotional intelligence strengths and areas for development
+              Challenge yourself with football trivia and track your progress
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <Brain className="w-8 h-8 text-primary mb-2" />
-            <CardTitle className="text-lg">Self-Awareness</CardTitle>
+            <Target className="w-8 h-8 text-success mb-2" />
+            <CardTitle className="text-lg">Fuel Your Body</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Gain deeper insights into your emotional patterns and responses
+              Learn about nutrition and make informed dietary choices
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <Users className="w-8 h-8 text-primary mb-2" />
-            <CardTitle className="text-lg">Better Relationships</CardTitle>
+            <Zap className="w-8 h-8 text-success mb-2" />
+            <CardTitle className="text-lg">Train Smart</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Improve your ability to connect with and understand others
+              Access professional training videos and improve your technique
             </p>
           </CardContent>
         </Card>

@@ -13,100 +13,50 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
-export const AssessmentAnswers = IDL.Record({
-  'item10' : IDL.Nat,
-  'item11' : IDL.Nat,
-  'item12' : IDL.Nat,
-  'item13' : IDL.Nat,
-  'item14' : IDL.Nat,
-  'item15' : IDL.Nat,
-  'item16' : IDL.Nat,
-  'item17' : IDL.Nat,
-  'item18' : IDL.Nat,
-  'item19' : IDL.Nat,
-  'item20' : IDL.Nat,
-  'item21' : IDL.Nat,
-  'item22' : IDL.Nat,
-  'item23' : IDL.Nat,
-  'item24' : IDL.Nat,
-  'item25' : IDL.Nat,
-  'item26' : IDL.Nat,
-  'item27' : IDL.Nat,
-  'item28' : IDL.Nat,
-  'item29' : IDL.Nat,
-  'item30' : IDL.Nat,
-  'item31' : IDL.Nat,
-  'item32' : IDL.Nat,
-  'item33' : IDL.Nat,
-  'item34' : IDL.Nat,
-  'item35' : IDL.Nat,
-  'item36' : IDL.Nat,
-  'item37' : IDL.Nat,
-  'item38' : IDL.Nat,
-  'item39' : IDL.Nat,
-  'item40' : IDL.Nat,
-  'item41' : IDL.Nat,
-  'item42' : IDL.Nat,
-  'item43' : IDL.Nat,
-  'item44' : IDL.Nat,
-  'item45' : IDL.Nat,
-  'item46' : IDL.Nat,
-  'item47' : IDL.Nat,
-  'item48' : IDL.Nat,
-  'item49' : IDL.Nat,
-  'item50' : IDL.Nat,
-  'item1' : IDL.Nat,
-  'item2' : IDL.Nat,
-  'item3' : IDL.Nat,
-  'item4' : IDL.Nat,
-  'item5' : IDL.Nat,
-  'item6' : IDL.Nat,
-  'item7' : IDL.Nat,
-  'item8' : IDL.Nat,
-  'item9' : IDL.Nat,
+export const AgeGroup = IDL.Variant({
+  'adult18_30' : IDL.Null,
+  'senior31plus' : IDL.Null,
+  'under12' : IDL.Null,
+  'teen13_17' : IDL.Null,
 });
-export const InterpretationCategory = IDL.Variant({
-  'good' : IDL.Null,
-  'indicatesDevelopment' : IDL.Null,
-});
-export const SingleCompetencyScore = IDL.Record({
-  'total' : IDL.Nat,
-  'category' : InterpretationCategory,
-});
-export const AssessmentResults = IDL.Record({
-  'selfAwareness' : SingleCompetencyScore,
-  'socialSkill' : SingleCompetencyScore,
-  'managingEmotions' : SingleCompetencyScore,
-  'motivatingOneself' : SingleCompetencyScore,
-  'empathy' : SingleCompetencyScore,
+export const UserProfile = IDL.Record({
+  'name' : IDL.Text,
+  'ageGroup' : AgeGroup,
 });
 export const Time = IDL.Int;
-export const Submission = IDL.Record({
-  'answers' : AssessmentAnswers,
-  'results' : AssessmentResults,
+export const QuizScore = IDL.Record({
+  'score' : IDL.Nat,
+  'totalQuestions' : IDL.Nat,
   'timestamp' : Time,
-  'respondent' : IDL.Principal,
+  'playerName' : IDL.Text,
 });
-export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const TrainingLog = IDL.Record({
+  'section' : IDL.Text,
+  'timestamp' : Time,
+});
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'assignAdminRole' : IDL.Func([IDL.Principal], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
-  'assignSurveyorAccess' : IDL.Func([IDL.Principal], [], []),
-  'getAllSubmissions' : IDL.Func([], [IDL.Vec(Submission)], ['query']),
+  'assignUserRole' : IDL.Func([IDL.Principal], [], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
-  'getCompetencyMapping' : IDL.Func([], [IDL.Text], ['query']),
-  'getMySubmission' : IDL.Func([], [IDL.Opt(Submission)], ['query']),
+  'getTopScores' : IDL.Func([IDL.Principal], [IDL.Vec(QuizScore)], ['query']),
+  'getTrainingLogs' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Vec(TrainingLog)],
+      ['query'],
+    ),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
-  'revokeSurveyorAccess' : IDL.Func([IDL.Principal], [], []),
+  'logTrainingSession' : IDL.Func([IDL.Text], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
-  'submitAssessment' : IDL.Func([AssessmentAnswers], [AssessmentResults], []),
+  'submitQuizScore' : IDL.Func([QuizScore], [], []),
 });
 
 export const idlInitArgs = [];
@@ -117,100 +67,44 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
-  const AssessmentAnswers = IDL.Record({
-    'item10' : IDL.Nat,
-    'item11' : IDL.Nat,
-    'item12' : IDL.Nat,
-    'item13' : IDL.Nat,
-    'item14' : IDL.Nat,
-    'item15' : IDL.Nat,
-    'item16' : IDL.Nat,
-    'item17' : IDL.Nat,
-    'item18' : IDL.Nat,
-    'item19' : IDL.Nat,
-    'item20' : IDL.Nat,
-    'item21' : IDL.Nat,
-    'item22' : IDL.Nat,
-    'item23' : IDL.Nat,
-    'item24' : IDL.Nat,
-    'item25' : IDL.Nat,
-    'item26' : IDL.Nat,
-    'item27' : IDL.Nat,
-    'item28' : IDL.Nat,
-    'item29' : IDL.Nat,
-    'item30' : IDL.Nat,
-    'item31' : IDL.Nat,
-    'item32' : IDL.Nat,
-    'item33' : IDL.Nat,
-    'item34' : IDL.Nat,
-    'item35' : IDL.Nat,
-    'item36' : IDL.Nat,
-    'item37' : IDL.Nat,
-    'item38' : IDL.Nat,
-    'item39' : IDL.Nat,
-    'item40' : IDL.Nat,
-    'item41' : IDL.Nat,
-    'item42' : IDL.Nat,
-    'item43' : IDL.Nat,
-    'item44' : IDL.Nat,
-    'item45' : IDL.Nat,
-    'item46' : IDL.Nat,
-    'item47' : IDL.Nat,
-    'item48' : IDL.Nat,
-    'item49' : IDL.Nat,
-    'item50' : IDL.Nat,
-    'item1' : IDL.Nat,
-    'item2' : IDL.Nat,
-    'item3' : IDL.Nat,
-    'item4' : IDL.Nat,
-    'item5' : IDL.Nat,
-    'item6' : IDL.Nat,
-    'item7' : IDL.Nat,
-    'item8' : IDL.Nat,
-    'item9' : IDL.Nat,
+  const AgeGroup = IDL.Variant({
+    'adult18_30' : IDL.Null,
+    'senior31plus' : IDL.Null,
+    'under12' : IDL.Null,
+    'teen13_17' : IDL.Null,
   });
-  const InterpretationCategory = IDL.Variant({
-    'good' : IDL.Null,
-    'indicatesDevelopment' : IDL.Null,
-  });
-  const SingleCompetencyScore = IDL.Record({
-    'total' : IDL.Nat,
-    'category' : InterpretationCategory,
-  });
-  const AssessmentResults = IDL.Record({
-    'selfAwareness' : SingleCompetencyScore,
-    'socialSkill' : SingleCompetencyScore,
-    'managingEmotions' : SingleCompetencyScore,
-    'motivatingOneself' : SingleCompetencyScore,
-    'empathy' : SingleCompetencyScore,
-  });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text, 'ageGroup' : AgeGroup });
   const Time = IDL.Int;
-  const Submission = IDL.Record({
-    'answers' : AssessmentAnswers,
-    'results' : AssessmentResults,
+  const QuizScore = IDL.Record({
+    'score' : IDL.Nat,
+    'totalQuestions' : IDL.Nat,
     'timestamp' : Time,
-    'respondent' : IDL.Principal,
+    'playerName' : IDL.Text,
   });
-  const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const TrainingLog = IDL.Record({ 'section' : IDL.Text, 'timestamp' : Time });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'assignAdminRole' : IDL.Func([IDL.Principal], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
-    'assignSurveyorAccess' : IDL.Func([IDL.Principal], [], []),
-    'getAllSubmissions' : IDL.Func([], [IDL.Vec(Submission)], ['query']),
+    'assignUserRole' : IDL.Func([IDL.Principal], [], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
-    'getCompetencyMapping' : IDL.Func([], [IDL.Text], ['query']),
-    'getMySubmission' : IDL.Func([], [IDL.Opt(Submission)], ['query']),
+    'getTopScores' : IDL.Func([IDL.Principal], [IDL.Vec(QuizScore)], ['query']),
+    'getTrainingLogs' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Vec(TrainingLog)],
+        ['query'],
+      ),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
-    'revokeSurveyorAccess' : IDL.Func([IDL.Principal], [], []),
+    'logTrainingSession' : IDL.Func([IDL.Text], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
-    'submitAssessment' : IDL.Func([AssessmentAnswers], [AssessmentResults], []),
+    'submitQuizScore' : IDL.Func([QuizScore], [], []),
   });
 };
 

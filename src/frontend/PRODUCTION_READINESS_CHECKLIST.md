@@ -34,8 +34,6 @@ Use this checklist to verify that your EI Assessment application deployment is p
   - [ ] Clicking login redirects to Internet Identity
   - [ ] Can complete Internet Identity authentication
   - [ ] Successfully redirected back to application after login
-  - [ ] User profile setup modal appears for first-time users
-  - [ ] Can enter and save display name
 
 - [ ] **Session Persistence**
   - [ ] After login, refresh the page - user remains logged in
@@ -80,7 +78,7 @@ Use this checklist to verify that your EI Assessment application deployment is p
 - [ ] **Data Export**
   - [ ] Surveyor dashboard displays all submissions
   - [ ] Submissions are sorted by latest first
-  - [ ] Each submission shows respondent, timestamp, and scores
+  - [ ] Each submission shows respondent ID, timestamp, and scores
   - [ ] **CSV Export:** Can export submissions to CSV
   - [ ] **CSV Export:** Downloaded CSV file contains all submission data
   - [ ] **CSV Export:** CSV format is correct and opens in spreadsheet software
