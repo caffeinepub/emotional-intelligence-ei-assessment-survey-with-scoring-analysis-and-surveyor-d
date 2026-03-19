@@ -2,31 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Figtree";
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+}
+
 @layer base {
   :root {
     --radius: 0.75rem;
-    --background: 0.98 0.01 140;
-    --foreground: 0.15 0.02 140;
+    --background: 0.97 0.005 140;
+    --foreground: 0.14 0.025 140;
     --card: 1 0 0;
-    --card-foreground: 0.15 0.02 140;
+    --card-foreground: 0.14 0.025 140;
     --popover: 1 0 0;
-    --popover-foreground: 0.15 0.02 140;
-    --primary: 0.55 0.18 140;
-    --primary-foreground: 0.98 0.01 140;
-    --secondary: 0.92 0.02 140;
-    --secondary-foreground: 0.2 0.02 140;
-    --muted: 0.94 0.02 140;
-    --muted-foreground: 0.45 0.02 140;
-    --accent: 0.92 0.02 140;
-    --accent-foreground: 0.2 0.02 140;
-    --destructive: 0.55 0.22 15;
-    --destructive-foreground: 0.98 0.01 140;
-    --success: 0.6 0.18 140;
-    --success-foreground: 0.98 0.01 140;
-    --border: 0.88 0.02 140;
-    --input: 0.88 0.02 140;
-    --ring: 0.55 0.18 140;
-    --chart-1: 0.6 0.2 140;
+    --popover-foreground: 0.14 0.025 140;
+    --primary: 0.52 0.2 145;
+    --primary-foreground: 0.99 0 0;
+    --secondary: 0.91 0.025 140;
+    --secondary-foreground: 0.18 0.025 140;
+    --muted: 0.94 0.015 140;
+    --muted-foreground: 0.44 0.018 140;
+    --accent: 0.91 0.025 140;
+    --accent-foreground: 0.18 0.025 140;
+    --destructive: 0.54 0.22 15;
+    --destructive-foreground: 0.99 0 0;
+    --success: 0.56 0.2 145;
+    --success-foreground: 0.99 0 0;
+    --border: 0.87 0.018 140;
+    --input: 0.87 0.018 140;
+    --ring: 0.52 0.2 145;
+    --pitch-green: 0.46 0.19 145;
+    --gold: 0.78 0.16 85;
+    --chart-1: 0.58 0.2 140;
     --chart-2: 0.55 0.18 160;
     --chart-3: 0.65 0.15 120;
     --chart-4: 0.5 0.2 180;
@@ -34,27 +52,29 @@
   }
 
   .dark {
-    --background: 0.12 0.02 140;
-    --foreground: 0.95 0.01 140;
-    --card: 0.15 0.02 140;
-    --card-foreground: 0.95 0.01 140;
-    --popover: 0.15 0.02 140;
-    --popover-foreground: 0.95 0.01 140;
-    --primary: 0.65 0.2 140;
-    --primary-foreground: 0.12 0.02 140;
-    --secondary: 0.22 0.03 140;
-    --secondary-foreground: 0.95 0.01 140;
-    --muted: 0.22 0.03 140;
-    --muted-foreground: 0.6 0.02 140;
-    --accent: 0.28 0.04 140;
-    --accent-foreground: 0.95 0.01 140;
+    --background: 0.1 0.02 140;
+    --foreground: 0.96 0.01 140;
+    --card: 0.14 0.022 140;
+    --card-foreground: 0.96 0.01 140;
+    --popover: 0.14 0.022 140;
+    --popover-foreground: 0.96 0.01 140;
+    --primary: 0.65 0.22 145;
+    --primary-foreground: 0.1 0.02 140;
+    --secondary: 0.2 0.03 140;
+    --secondary-foreground: 0.96 0.01 140;
+    --muted: 0.2 0.03 140;
+    --muted-foreground: 0.58 0.018 140;
+    --accent: 0.26 0.04 140;
+    --accent-foreground: 0.96 0.01 140;
     --destructive: 0.6 0.25 15;
-    --destructive-foreground: 0.95 0.01 140;
-    --success: 0.65 0.2 140;
-    --success-foreground: 0.12 0.02 140;
-    --border: 0.28 0.03 140;
-    --input: 0.28 0.03 140;
-    --ring: 0.65 0.2 140;
+    --destructive-foreground: 0.96 0.01 140;
+    --success: 0.62 0.22 145;
+    --success-foreground: 0.1 0.02 140;
+    --border: 0.26 0.03 140;
+    --input: 0.26 0.03 140;
+    --ring: 0.65 0.22 145;
+    --pitch-green: 0.62 0.22 145;
+    --gold: 0.82 0.18 85;
     --chart-1: 0.65 0.22 140;
     --chart-2: 0.6 0.2 160;
     --chart-3: 0.7 0.18 120;
@@ -67,6 +87,77 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Figtree", "General Sans", system-ui, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-pitch {
+    background: linear-gradient(
+      135deg,
+      oklch(0.52 0.2 145),
+      oklch(0.38 0.15 160)
+    );
+  }
+  .gradient-pitch-text {
+    background: linear-gradient(
+      135deg,
+      oklch(0.52 0.2 145),
+      oklch(0.68 0.22 120)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .gradient-gold-text {
+    background: linear-gradient(
+      135deg,
+      oklch(0.78 0.16 85),
+      oklch(0.88 0.14 75)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      oklch(0.1 0.02 140 / 0.4) 50%,
+      oklch(0.1 0.02 140 / 0.85) 100%
+    );
+  }
+  .page-bg {
+    background: radial-gradient(
+        ellipse at top right,
+        oklch(0.52 0.2 145 / 0.06) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at bottom left,
+        oklch(0.52 0.2 145 / 0.04) 0%,
+        transparent 60%
+      ), oklch(0.97 0.005 140);
+  }
+  .dark .page-bg {
+    background: radial-gradient(
+        ellipse at top right,
+        oklch(0.65 0.22 145 / 0.08) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at bottom left,
+        oklch(0.65 0.22 145 / 0.06) 0%,
+        transparent 60%
+      ), oklch(0.1 0.02 140);
   }
 }

@@ -15,6 +15,10 @@ export default {
             }
         },
         extend: {
+            fontFamily: {
+                display: ['Bricolage Grotesque', 'Figtree', 'system-ui', 'sans-serif'],
+                body: ['Figtree', 'General Sans', 'system-ui', 'sans-serif'],
+            },
             colors: {
                 border: 'oklch(var(--border))',
                 input: 'oklch(var(--input))',
@@ -49,6 +53,8 @@ export default {
                     DEFAULT: 'oklch(var(--card))',
                     foreground: 'oklch(var(--card-foreground))'
                 },
+                'pitch-green': 'oklch(var(--pitch-green))',
+                gold: 'oklch(var(--gold))',
                 chart: {
                     1: 'oklch(var(--chart-1))',
                     2: 'oklch(var(--chart-2))',
@@ -57,14 +63,14 @@ export default {
                     5: 'oklch(var(--chart-5))'
                 },
                 sidebar: {
-                    DEFAULT: 'oklch(var(--sidebar))',
-                    foreground: 'oklch(var(--sidebar-foreground))',
-                    primary: 'oklch(var(--sidebar-primary))',
-                    'primary-foreground': 'oklch(var(--sidebar-primary-foreground))',
-                    accent: 'oklch(var(--sidebar-accent))',
-                    'accent-foreground': 'oklch(var(--sidebar-accent-foreground))',
-                    border: 'oklch(var(--sidebar-border))',
-                    ring: 'oklch(var(--sidebar-ring))'
+                    DEFAULT: 'oklch(var(--sidebar, 1 0 0))',
+                    foreground: 'oklch(var(--sidebar-foreground, 0.14 0.025 140))',
+                    primary: 'oklch(var(--sidebar-primary, 0.52 0.2 145))',
+                    'primary-foreground': 'oklch(var(--sidebar-primary-foreground, 0.99 0 0))',
+                    accent: 'oklch(var(--sidebar-accent, 0.91 0.025 140))',
+                    'accent-foreground': 'oklch(var(--sidebar-accent-foreground, 0.18 0.025 140))',
+                    border: 'oklch(var(--sidebar-border, 0.87 0.018 140))',
+                    ring: 'oklch(var(--sidebar-ring, 0.52 0.2 145))'
                 }
             },
             borderRadius: {
@@ -73,7 +79,9 @@ export default {
                 sm: 'calc(var(--radius) - 4px)'
             },
             boxShadow: {
-                xs: '0 1px 2px 0 rgba(0,0,0,0.05)'
+                xs: '0 1px 2px 0 rgba(0,0,0,0.05)',
+                glow: '0 0 20px oklch(0.52 0.2 145 / 0.25)',
+                'glow-lg': '0 0 40px oklch(0.52 0.2 145 / 0.3)',
             },
             keyframes: {
                 'accordion-down': {

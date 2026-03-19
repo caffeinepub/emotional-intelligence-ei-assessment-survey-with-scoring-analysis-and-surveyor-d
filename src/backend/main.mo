@@ -8,9 +8,9 @@ import Order "mo:core/Order";
 import Runtime "mo:core/Runtime";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
-import Migration "migration";
 
-(with migration = Migration.run)
+
+
 actor {
   public type UserProfile = {
     name : Text;
