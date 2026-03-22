@@ -1,15 +1,23 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ExternalLink, Play } from "lucide-react";
+import { ExternalLink, Heart, Play } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { clipCategories, footballClips } from "../content/clips";
+import { useFavoriteClips } from "../hooks/useFavoriteClips";
 
 function ClipCard({
   clip,
   index,
-}: { clip: (typeof footballClips)[number]; index: number }) {
+  isFavorite,
+  onToggleFavorite,
+}: {
+  clip: (typeof footballClips)[number];
+  index: number;
+  isFavorite: boolean;
+  onToggleFavorite: (id: string) => void;
+}) {
   const [playing, setPlaying] = useState(false);
   const thumbnailUrl = `https://img.youtube.com/vi/${clip.videoId}/hqdefault.jpg`;
 
@@ -50,6 +58,23 @@ function ClipCard({
             </div>
           </button>
         )}
+        {/* Favorite button overlay */}
+        <button
+          type="button"
+          onClick={() => onToggleFavorite(clip.id)}
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          className={`absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-all duration-200 ${
+            isFavorite
+              ? "bg-red-500 text-white scale-110"
+              : "bg-black/50 text-white/80 hover:bg-black/70"
+          }`}
+        >
+          <Heart
+            className={`w-4 h-4 transition-all ${
+              isFavorite ? "fill-white" : "fill-transparent"
+            }`}
+          />
+        </button>
       </div>
       <div className="p-4">
         <h3 className="font-display font-bold text-base leading-snug mb-1">
@@ -74,8 +99,20 @@ function ClipCard({
 
 export default function ClipsPage() {
   const [activeCategory, setActiveCategory] = useState("goals");
+  const { favorites, toggleFavorite, isFavorite } = useFavoriteClips();
 
-  const activeCat = clipCategories.find((c) => c.id === activeCategory)!;
+  const favoriteClips = footballClips.filter((c) => favorites.has(c.id));
+  const allCategories = [
+    { id: "favorites", label: "Favorites", emoji: "❤️" },
+    ...clipCategories,
+  ];
+
+  const activeCat = allCategories.find((c) => c.id === activeCategory)!;
+
+  const displayedClips =
+    activeCategory === "favorites"
+      ? favoriteClips
+      : footballClips.filter((c) => c.category === activeCategory);
 
   return (
     <div className="page-bg min-h-screen">
@@ -111,22 +148,27 @@ export default function ClipsPage() {
       <div className="container mx-auto px-4 py-10 max-w-6xl">
         <Tabs value={activeCategory} onValueChange={setActiveCategory}>
           <div className="mb-8 overflow-x-auto">
-            <TabsList className="grid w-full grid-cols-4">
-              {clipCategories.map((cat) => (
+            <TabsList className="grid w-full grid-cols-5">
+              {allCategories.map((cat) => (
                 <TabsTrigger
                   key={cat.id}
                   value={cat.id}
-                  className="gap-1.5 text-sm font-semibold"
+                  className="gap-1.5 text-sm font-semibold relative"
                   data-ocid={`clips.${cat.id}_tab`}
                 >
                   <span>{cat.emoji}</span>
                   <span className="hidden sm:inline">{cat.label}</span>
+                  {cat.id === "favorites" && favorites.size > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[10px] flex items-center justify-center font-bold">
+                      {favorites.size}
+                    </span>
+                  )}
                 </TabsTrigger>
               ))}
             </TabsList>
           </div>
 
-          {clipCategories.map((cat) => (
+          {allCategories.map((cat) => (
             <TabsContent key={cat.id} value={cat.id}>
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
@@ -142,21 +184,34 @@ export default function ClipsPage() {
                       {cat.label}
                     </h2>
                     <p className="text-sm text-muted-foreground">
-                      {
-                        footballClips.filter((c) => c.category === cat.id)
-                          .length
-                      }{" "}
-                      clips available
+                      {displayedClips.length} clips
+                      {cat.id === "favorites" ? " saved" : " available"}
                     </p>
                   </div>
                 </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {footballClips
-                    .filter((c) => c.category === cat.id)
-                    .map((clip, i) => (
-                      <ClipCard key={clip.id} clip={clip} index={i} />
+                {displayedClips.length === 0 ? (
+                  <div className="text-center py-16 text-muted-foreground">
+                    <Heart className="w-12 h-12 mx-auto mb-3 opacity-30" />
+                    <p className="font-display font-semibold text-lg">
+                      No favorites yet
+                    </p>
+                    <p className="text-sm mt-1">
+                      Tap the ❤️ on any clip to save it here
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {displayedClips.map((clip, i) => (
+                      <ClipCard
+                        key={clip.id}
+                        clip={clip}
+                        index={i}
+                        isFavorite={isFavorite(clip.id)}
+                        onToggleFavorite={toggleFavorite}
+                      />
                     ))}
-                </div>
+                  </div>
+                )}
               </motion.div>
             </TabsContent>
           ))}
