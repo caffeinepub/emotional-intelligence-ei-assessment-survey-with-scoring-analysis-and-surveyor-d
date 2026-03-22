@@ -1,14 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import {
-  Brain,
-  Clapperboard,
-  Dumbbell,
-  Heart,
-  Home,
-  Utensils,
-} from "lucide-react";
+import { Brain, Dumbbell, Heart, Home, Utensils } from "lucide-react";
 import { useInternetIdentity } from "../../hooks/useInternetIdentity";
 
 interface AppLayoutProps {
@@ -105,16 +98,6 @@ export default function AppLayout({ children }: AppLayoutProps) {
               >
                 <Dumbbell className="w-4 h-4" />
                 <span className="hidden sm:inline">Training</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate({ to: "/clips" })}
-                className="gap-2"
-                data-ocid="nav.clips_link"
-              >
-                <Clapperboard className="w-4 h-4" />
-                <span className="hidden sm:inline">Clips</span>
               </Button>
 
               <Button

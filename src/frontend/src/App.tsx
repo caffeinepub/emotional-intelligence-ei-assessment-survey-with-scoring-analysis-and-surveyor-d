@@ -9,7 +9,6 @@ import {
 import { ThemeProvider } from "next-themes";
 import AppLayout from "./components/layout/AppLayout";
 import { useInternetIdentity } from "./hooks/useInternetIdentity";
-import ClipsPage from "./pages/ClipsPage";
 import FoodPage from "./pages/FoodPage";
 import HomePage from "./pages/HomePage";
 import QuizPage from "./pages/QuizPage";
@@ -64,18 +63,11 @@ const trainingRoute = createRoute({
   component: TrainingPage,
 });
 
-const clipsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/clips",
-  component: ClipsPage,
-});
-
 const routeTree = rootRoute.addChildren([
   indexRoute,
   quizRoute,
   foodRoute,
   trainingRoute,
-  clipsRoute,
 ]);
 
 const router = createRouter({ routeTree });
