@@ -86,7 +86,7 @@ export default function TrainingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   {cat.videos.map((video) => (
-                    <TrainingVideoCard key={video.embedUrl} video={video} />
+                    <TrainingVideoCard key={video.videoId} video={video} />
                   ))}
                 </div>
               </motion.div>

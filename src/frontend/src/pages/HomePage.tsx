@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import {
   ArrowRight,
   Brain,
+  Clapperboard,
   Dumbbell,
   HelpCircle,
   Salad,
@@ -15,6 +16,7 @@ const stats = [
   { icon: HelpCircle, label: "Quiz Questions", value: "50" },
   { icon: Salad, label: "Foods Tracked", value: "30+" },
   { icon: Video, label: "Training Videos", value: "20+" },
+  { icon: Clapperboard, label: "Highlight Clips", value: "15+" },
   { icon: Trophy, label: "FIFA Trivia", value: "100%" },
 ];
 
@@ -27,7 +29,6 @@ const sections = [
     description:
       "Test your football knowledge with 50 challenging FIFA trivia questions. Answer fast, score big.",
     cta: "Start Quiz",
-    gradient: "from-emerald-600 to-green-500",
     bgClass: "from-[oklch(0.52_0.2_145)] to-[oklch(0.38_0.15_160)]",
     ocid: "home.quiz.primary_button",
   },
@@ -39,7 +40,6 @@ const sections = [
     description:
       "Discover calories and benefits of athlete foods. Get age-specific diet plans for peak performance.",
     cta: "Explore Foods",
-    gradient: "from-lime-500 to-emerald-600",
     bgClass: "from-[oklch(0.62_0.2_125)] to-[oklch(0.52_0.2_145)]",
     ocid: "home.food.primary_button",
   },
@@ -51,9 +51,19 @@ const sections = [
     description:
       "Watch professional drills from All Attack & Unisport. Improve ball control, shooting, and more.",
     cta: "View Drills",
-    gradient: "from-green-700 to-teal-600",
     bgClass: "from-[oklch(0.42_0.18_165)] to-[oklch(0.52_0.2_145)]",
     ocid: "home.training.primary_button",
+  },
+  {
+    to: "/clips" as const,
+    icon: Clapperboard,
+    emoji: "🎬",
+    title: "Football Clips",
+    description:
+      "Watch jaw-dropping goals, incredible skills, and iconic moments from football history.",
+    cta: "Watch Clips",
+    bgClass: "from-[oklch(0.35_0.18_260)] to-[oklch(0.28_0.22_280)]",
+    ocid: "home.clips.primary_button",
   },
 ];
 
@@ -96,7 +106,7 @@ export default function HomePage() {
       {/* Stats bar */}
       <div className="bg-primary shadow-glow">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-0">
             {stats.map(({ icon: Icon, label, value }, i) => (
               <motion.div
                 key={label}
@@ -122,7 +132,7 @@ export default function HomePage() {
 
       {/* Section cards */}
       <div className="container mx-auto px-4 py-16 max-w-6xl">
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid md:grid-cols-4 gap-6 mb-16">
           {sections.map(
             (
               { to, icon: Icon, emoji, title, description, cta, bgClass, ocid },
@@ -176,7 +186,7 @@ export default function HomePage() {
         </div>
 
         {/* Feature row */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-4 gap-6">
           {[
             {
               icon: "🏆",
@@ -192,6 +202,11 @@ export default function HomePage() {
               icon: "🎯",
               title: "Train Smart",
               desc: "Access professional training videos and sharpen your technique every session",
+            },
+            {
+              icon: "🎬",
+              title: "Watch the Best",
+              desc: "Relive iconic goals, skills, saves, and legendary moments from football history",
             },
           ].map(({ icon, title, desc }, i) => (
             <motion.div
